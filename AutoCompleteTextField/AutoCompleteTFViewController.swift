@@ -16,7 +16,7 @@ class AutoCompleteTFViewController: UIViewController {
         textfield.placeholder = "Person's name"
         textfield.tintColor = UIColor.gray
         textfield.boldTextColor = UIColor.black
-        textfield.highlightTextColor = UIColor.gray
+        textfield.lightTextColor = UIColor.gray
         return textfield
     }()
     

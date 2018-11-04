@@ -27,7 +27,7 @@ class AutoCompletePerson: UIView {
         autoComplete.placeholder = "Person's name"
         autoComplete.tintColor = UIColor.gray
         autoComplete.boldTextColor = UIColor.black
-        autoComplete.highlightTextColor = UIColor.gray
+        autoComplete.lightTextColor = UIColor.gray
         autoComplete.autocompleteDelegate = self
         return autoComplete
     }()

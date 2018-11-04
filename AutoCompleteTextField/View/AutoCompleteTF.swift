@@ -17,11 +17,12 @@ protocol AutoCompleteTextFieldDelegate {
 class AutoCompleteTextField: UITextField {
     
     var datasource: [String]?
+    
     var autocompleteDelegate: AutoCompleteTextFieldDelegate?
     
-    var highlightTextColor: UIColor = UIColor.gray {
+    var lightTextColor: UIColor = UIColor.gray {
         didSet {
-            self.textColor = highlightTextColor
+            self.textColor = lightTextColor
         }
     }
     
@@ -33,7 +34,7 @@ class AutoCompleteTextField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.textColor = highlightTextColor
+        self.textColor = lightTextColor
         self.delegate = self
     }
     
@@ -53,7 +54,7 @@ extension AutoCompleteTextField: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
+        print("shouldChangeChars: \(string)")
         updateText(string, in: textField)
         
         testBackspace(string, in: textField)
@@ -66,7 +67,7 @@ extension AutoCompleteTextField: UITextFieldDelegate {
     }
     
     private func updateText(_ string: String, in textField: UITextField) {
-        textField.textColor = highlightTextColor
+        textField.textColor = self.lightTextColor
         self.currInput += string
         textField.text = self.currInput
     }
@@ -85,15 +86,16 @@ extension AutoCompleteTextField: UITextFieldDelegate {
     }
     
     private func findDatasourceMatch(for textField: UITextField) {
-        if let allOptions = datasource?.filter({ $0.hasPrefix(self.currInput) }) {
-            let exactMatch = allOptions.filter() { $0 == self.currInput }
-            let fullName = exactMatch.count > 0 ? exactMatch.first! : allOptions.first ?? self.currInput
-            if let range = fullName.range(of: self.currInput) {
-                let nsRange = fullName.nsRange(from: range)
-                let attribute = NSMutableAttributedString.init(string: fullName as String)
-                attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: self.boldTextColor, range: nsRange)
-                textField.attributedText = attribute
-            }
+        guard let datasource = self.datasource else { return }
+        
+        let allOptions = datasource.filter({ $0.hasPrefix(self.currInput) })
+        let exactMatch = allOptions.filter() { $0 == self.currInput }
+        let fullName = exactMatch.count > 0 ? exactMatch.first! : allOptions.first ?? self.currInput
+        if let range = fullName.range(of: self.currInput) {
+            let nsRange = fullName.nsRange(from: range)
+            let attribute = NSMutableAttributedString.init(string: fullName as String)
+            attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: self.boldTextColor, range: nsRange)
+            textField.attributedText = attribute
         }
     }
     

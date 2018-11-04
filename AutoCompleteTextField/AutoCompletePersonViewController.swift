@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class AutoCompletePersonViewController: UIViewController {
     
     var autoCompletePerson: AutoCompletePerson?
