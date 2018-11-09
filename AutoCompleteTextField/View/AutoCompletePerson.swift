@@ -28,7 +28,7 @@ class AutoCompletePerson: UIView {
         autoComplete.tintColor = UIColor.gray
         autoComplete.boldTextColor = UIColor.black
         autoComplete.lightTextColor = UIColor.gray
-        //autoComplete.autocompleteDelegate = self
+        autoComplete.autocompleteDelegate = self
         return autoComplete
     }()
     
@@ -48,11 +48,11 @@ class AutoCompletePerson: UIView {
     
     private var selectedPerson: Person? {
         didSet {
-//            self.delegate?.selectedPerson(selectedPerson)
+            self.delegate?.selectedPerson(selectedPerson)
         }
     }
     
-//    var delegate: AutoCompletePersonDelegate?
+    var delegate: AutoCompletePersonDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
