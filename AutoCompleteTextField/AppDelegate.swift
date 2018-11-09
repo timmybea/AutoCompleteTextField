@@ -18,8 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        window?.rootViewController = AutoCompleteTFViewController()
-                
+        window?.rootViewController = AutoCompletePersonViewController()
+        
+        let imageView = UIImageView()
+        imageView.isUserInteractionEnabled = true
+        
         return true
     }
 

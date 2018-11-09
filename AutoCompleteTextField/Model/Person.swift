@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Person {
+class Person {
     
     var firstName: String
     var lastName: String
@@ -35,7 +35,7 @@ extension Person : CustomStringConvertible {
     
 }
 
-//MARK: Static methods for datasource
+//MARK: Datasource
 extension Person {
     
     enum PersonData {

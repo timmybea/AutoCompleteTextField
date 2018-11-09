@@ -28,7 +28,7 @@ class AutoCompletePerson: UIView {
         autoComplete.tintColor = UIColor.gray
         autoComplete.boldTextColor = UIColor.black
         autoComplete.lightTextColor = UIColor.gray
-        autoComplete.autocompleteDelegate = self
+        //autoComplete.autocompleteDelegate = self
         return autoComplete
     }()
     
@@ -43,16 +43,16 @@ class AutoCompletePerson: UIView {
             setAutoCompleteTextFieldDatasource()
         }
     }
-    
+
     private var autoCompleteDatasource: [String]?
     
     private var selectedPerson: Person? {
         didSet {
-            self.delegate?.selectedPerson(selectedPerson)
+//            self.delegate?.selectedPerson(selectedPerson)
         }
     }
     
-    var delegate: AutoCompletePersonDelegate?
+//    var delegate: AutoCompletePersonDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -85,37 +85,37 @@ extension AutoCompletePerson {
 
 //MARK: prepare data for autocomplete textfield
 extension AutoCompletePerson {
-    
+
     func setPersonDatasource(_ input: [Person]) {
         var data = [String: Person]()
-        
+
         for person in input {
             data["\(person.fullName)"] = person
         }
         self.personDatasource = data
     }
-    
+
     private func setAutoCompleteTextFieldDatasource() {
-        
+
         guard let personData = self.personDatasource else {
             self.autoCompleteDatasource = nil
             return
         }
-        
+
         self.autoCompleteDatasource = Array(personData.keys)
     }
 }
 
 //MARK: AutoCompleteTextFieldDelegate
 extension AutoCompletePerson: AutoCompleteTextFieldDelegate {
-    
+
     func provideDatasource() {
         autoCompleteTextfield.datasource = autoCompleteDatasource
     }
 
     func returned(with selection: String) {
         guard let data = self.personDatasource else { return }
-        
+
         if let person = data[selection] {
             self.profileImage.image = person.profileImage
             self.selectedPerson = person
@@ -126,5 +126,5 @@ extension AutoCompletePerson: AutoCompleteTextFieldDelegate {
         self.profileImage.image = UIImage.Theme.defaultProfile.image
         self.selectedPerson = nil
     }
-    
+
 }
